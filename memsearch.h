@@ -117,8 +117,9 @@ public:
     {
         if (isValid())
         {
+            // the offset is 32bit both on x86 and x64
             auto ptr = pointer_ + offset;
-            ra = (uintptr_t)(ptr + *(unsigned *)ptr + sizeof(ptr));
+            ra       = (uintptr_t) (ptr + *(uint32_t *) ptr + sizeof(uint32_t));
         }
         return *this;
     }
