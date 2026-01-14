@@ -22,7 +22,7 @@ else
     void var_debug(Args... args)
     {
         std::basic_ostringstream<Char> os;
-        ((os << args << ' '), ...);
+        ((os << args << Char(' ')), ...);
         spdlog::debug(os.str());
     }
 #elif defined(MEMSEARCH_ELPP)
@@ -69,7 +69,7 @@ public:
         {
 #if defined(MEMSEARCH_SPDLOG) || defined(MEMSEARCH_ELPP)
             //std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>, wchar_t> uconv;
-            var_debug(__func__, module, (void *)base_, ':', baseLength_);
+            var_debug<wchar_t>(__func__, module, (void *)base_, ':', baseLength_);
 #endif
         }
         else
@@ -119,7 +119,7 @@ public:
         {
             // the offset is 32bit both on x86 and x64
             auto ptr = pointer_ + offset;
-            ra       = (uintptr_t) (ptr + *(uint32_t *) ptr + sizeof(uint32_t));
+            ra       = (uintptr_t) (ptr + *(int32_t *) ptr + sizeof(uint32_t));
         }
         return *this;
     }
